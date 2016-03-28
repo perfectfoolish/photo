@@ -1,10 +1,10 @@
 
 ## mysql
-mysql.host=127.0.0.1
+mysql.host=127.3.214.2
 mysql.port=3306
 mysql.db=photo
-mysql.username=root
-mysql.password=
+mysql.username=adminZTb2icp
+mysql.password=qwKjvyXgUynN
 
 mysql.c3p0.checkoutTimeout=5000
 mysql.c3p0.initialPoolSize=2
@@ -15,8 +15,8 @@ mysql.c3p0.acquireIncrement=50
 mysql.c3p0.maxIdleTimeExcessConnections=1800
 
 ## mongodb
-mongo.host=127.0.0.1
+mongo.host=127.3.214.4
 mongo.port=27017
 mongo.db=photo
-mongo.username=
-mongo.password=
+mongo.username=admin
+mongo.password=InduSSAI9M2f
