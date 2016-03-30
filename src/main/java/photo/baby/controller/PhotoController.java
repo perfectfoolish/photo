@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import photo.baby.bean.Photo;
+import photo.baby.bean.Prompt;
 import photo.baby.entity.Progress;
 import photo.baby.ext.PhotoMultipartResolver;
 import photo.baby.service.PhotoService;
@@ -127,6 +128,19 @@ public class PhotoController {
         if (p == null) {
             p = new Progress();
         }
+        return p;
+    }
+
+    @RequestMapping(value = "prompt", method = {RequestMethod.POST}, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public Prompt prompt(int photo_id, int x, int y, String text) {
+        Prompt p = new Prompt();
+        p.setCreatedAt(new Date());
+        p.setPhotoId(photo_id);
+        p.setText(text);
+        p.setX(x);
+        p.setY(y);
+        p = photoService.save(p);
         return p;
     }
 

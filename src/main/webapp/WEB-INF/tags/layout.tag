@@ -5,13 +5,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>TITLE</title>
+    <title>BABY->PHOTO</title>
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 </head>
-<body style="padding:0 15px;">
+<body style="padding:0;">
 
 <div class="container-fluid">
     <div class="row">

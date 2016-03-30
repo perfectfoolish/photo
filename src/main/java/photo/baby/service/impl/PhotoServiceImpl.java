@@ -8,7 +8,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import photo.baby.bean.Photo;
+import photo.baby.bean.Prompt;
 import photo.baby.repository.PhotoRepository;
+import photo.baby.repository.PromptRepository;
 import photo.baby.service.AlbumService;
 import photo.baby.service.PhotoService;
 
@@ -27,6 +29,9 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
     @Autowired
     private PhotoRepository photoRepository;
+
+    @Autowired
+    private PromptRepository promptRepository;
 
     @Value("#{props['fileDir']}")
     private String fileDir;
@@ -59,4 +64,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return list;
     }
 
+    public Prompt save(Prompt p){
+        return promptRepository.save(p);
+    }
 }

@@ -14,6 +14,9 @@ public class Prompt {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "photo_id")
+    private int photoId;
+
     @Column(name = "text")
     private String text;
 
@@ -33,6 +36,14 @@ public class Prompt {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
     }
 
     public String getText() {

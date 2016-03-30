@@ -2,6 +2,7 @@ package photo.baby.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import photo.baby.bean.Photo;
+import photo.baby.bean.Prompt;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,5 +15,7 @@ public interface PhotoService {
     public Photo save(MultipartFile multipartFile, String name) throws IOException;
 
     public List<Photo> latestPhotos();
+
+    public Prompt save(Prompt p);
 
 }
