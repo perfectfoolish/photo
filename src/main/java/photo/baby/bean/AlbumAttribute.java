@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by apple on 16/3/25.
  */
 
-@Document(collection = "PhotoAttr")
-public class PhotoAttr {
+@Document(collection = "AlbumAttribute")
+public class AlbumAttribute {
 
     @Id
     private String id;

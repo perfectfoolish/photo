@@ -2,5 +2,5 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:layout>
-    首页
+    首页<a href='/photo/upload'>Upload</a>
 </t:layout>

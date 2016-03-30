@@ -2,6 +2,7 @@ package photo.baby.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "User")
@@ -19,6 +20,9 @@ public class User implements Serializable {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "create_at")
+    private Date createdAt;
 
     public int getId() {
         return id;
@@ -42,5 +46,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
