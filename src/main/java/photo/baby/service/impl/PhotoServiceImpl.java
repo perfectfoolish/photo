@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import photo.baby.bean.Photo;
-import photo.baby.entity.Progress;
 import photo.baby.repository.PhotoRepository;
 import photo.baby.service.AlbumService;
 import photo.baby.service.PhotoService;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +24,10 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
     private PhotoRepository photoRepository;
 
     private String path = "/Users/apple/test";
+
+    public File file(String name) {
+        return new File(path, name);
+    }
 
     @Override
     public Photo save(MultipartFile multipartFile, String name) throws IOException {

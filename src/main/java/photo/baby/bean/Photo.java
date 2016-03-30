@@ -24,6 +24,9 @@ public class Photo implements Serializable {
     @Column(name = "create_at")
     private Date createdAt;
 
+    @Transient
+    private String url;
+
     public int getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class Photo implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
