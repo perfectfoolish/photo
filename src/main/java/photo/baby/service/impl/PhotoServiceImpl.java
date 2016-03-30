@@ -1,6 +1,10 @@
 package photo.baby.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import photo.baby.bean.Photo;
@@ -10,6 +14,7 @@ import photo.baby.service.PhotoService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,15 +28,19 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
     @Autowired
     private PhotoRepository photoRepository;
 
-    private String path = "/Users/apple/test";
+    @Value("#{props['fileDir']}")
+    private String fileDir;
+
+    @Value("#{props['host']}")
+    private String host;
 
     public File file(String name) {
-        return new File(path, name);
+        return new File(fileDir, name);
     }
 
     @Override
     public Photo save(MultipartFile multipartFile, String name) throws IOException {
-        multipartFile.transferTo(new File(path, name));
+        multipartFile.transferTo(new File(fileDir, name));
         Photo photo = new Photo();
         photo.setName(name);
         photo.setCreatedAt(new Date());
@@ -40,7 +49,14 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
     @Override
     public List<Photo> latestPhotos() {
-        return null;
+        PageRequest pageRequest = new PageRequest(0, 10, Sort.Direction.DESC, "id");
+        List<Photo> list = new ArrayList<Photo>();
+        Page<Photo> page = photoRepository.pageablePhotos(pageRequest);
+        for (Photo p : page) {
+            p.setUrl(host + "/photo/" + p.getName());
+            list.add(p);
+        }
+        return list;
     }
 
 }

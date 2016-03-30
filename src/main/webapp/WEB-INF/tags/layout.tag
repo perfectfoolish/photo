@@ -10,16 +10,9 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-    <c:set var="action" value="${requestScope['javax.servlet.forward.request_uri']}"/>
-
 </head>
 <body style="padding:0 15px;">
 
-<div class="navbar" role="navigation" style="background-color: #cccccc;border-radius: 0px;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">TITLE | ${action}</a>
-    </div>
-</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-xs-12">
