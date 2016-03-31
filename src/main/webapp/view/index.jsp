@@ -5,119 +5,19 @@
 
 <t:photo_frame>
 
+    <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/double.tap.js"></script>
+    <script src="${pageContext.request.contextPath}/js/index.js"></script>
 
-    <style type="text/css">
-
-        body {
-            overflow: hidden;
-        }
-
-        #toolbar {
-            position: absolute;
-            z-index: 2147483647;
-        }
-
-        .image_toolbar {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 0;
-        }
-
-        .spanSlide {
-            position: absolute;
-            font-size: 1px;
-            overflow: hidden;
-        }
-
-        .imgSlide {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-    </style>
 
     <script>
 
-        function createElement(container, type, param) {
-            o = document.createElement(type);
-            for (var i in param) {
-                o[i] = param[i];
-            }
-            container.appendChild(o);
-            return o;
-        }
-
-        mooz = {
-            O: [],
-            /////////
-            mult: 6,
-            nbI: 5,
-            /////////
-            width_height: [],
-            images: 0,
-            W: 0,
-            H: 0,
-
-            Xoom: function (N) {
-                this.o = createElement(document.getElementById("screen"), "span", {
-                    'className': 'spanSlide'
-                });
-                img = createElement(this.o, "img", {
-                    'className': "imgSlide",
-                    'src': mooz.images[N % mooz.images.length].src
-                });
-                this.N = 10000 + N;
-            },
-
-            mainloop: function () {
-                with (this) {
-                    for (i = 0; i < mooz.nbI; i++) {
-                        O[i].N += 50 / 8000;
-                        N = O[i].N % nbI;
-                        ti = Math.pow(mult, N);
-                        with (O[i].o.style) {
-                            left = Math.round((W - (ti * width_height[i])) / (W + ti) * (W * .5)) + "px";
-                            top = Math.round((H - ti) / (H + ti) * (H * .5)) + "px";
-                            zIndex = Math.round(10000 - ti * .1);
-                            width = Math.round(ti * width_height[i]) + "px";
-                            height = Math.round(ti) + "px";
-                        }
-                    }
-                }
-                setTimeout("mooz.mainloop();", 16);
-            },
-
-            oigres: function () {
-                with (this) {
-                    W = parseInt(document.getElementById("screen").style.width);
-                    H = parseInt(document.getElementById("screen").style.height);
-                    images = document.getElementById("images").getElementsByTagName("img");
-                    for (var i = 0; i < nbI; i++) {
-                        width_height[i] = images[i].width / images[i].height;
-                        O[i] = new Xoom(i);
-                    }
-                    mainloop();
-                }
-            }
-        }
-
-        function ImagePosition() {
-            this.photo_id = 0;
-            this.x_px = 0;
-            this.y_px = 0;
-            this.x_page = 0;
-            this.y_page = 0;
-        }
-
         window.onload = function () {
+
             $("#screen").css({
                 width: $(window).width(),
                 height: $(window).height()
             });
-            mooz.oigres();
 
             $(document.body).bind('touchmove', function (e) {
                 e.preventDefault();
@@ -128,6 +28,9 @@
                         e.preventDefault()
                     }
             );
+
+            gallery.play();
+            music.play();
         }
 
         $(function () {
@@ -189,8 +92,12 @@
     </script>
 
     <div id="toolbar">
-        <button onclick="alert(999);">开始</button>
+        <button onclick="gallery.playOrPause()">开始</button>
+        <div id="audio-btn" class="on" onclick="music.playOrPause(this,'music')">
+            <audio id="music" src="/raw/xajh.mp3" autoplay="autoplay"></audio>
+        </div>
     </div>
+
 
     <div id="screen"></div>
 
