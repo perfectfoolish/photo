@@ -5,7 +5,7 @@ body {
 /* 图片动画 */
 
 #toolbar {
-    position: absolute;
+    position: relative;
     z-index: 2147483647;
 }
 
@@ -31,21 +31,37 @@ body {
 
 /* 背景音乐 */
 
-#audio-btn {
-    width: 44px;
-    height: 44px;
-    margin: 100px auto;
-    background-size: 100% 100%;
+#gallery_btn {
+    margin: 4px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: 100%;
 }
 
-#audio-btn.on {
-    background: url('../images/music_on.png') no-repeat 0 0;
+#gallery_btn.on {
+    background: url('../images/pause.png') no-repeat 0 0;
+    background-size: 100%;
+}
+
+#gallery_btn.off {
+    background: url('../images/play.png') no-repeat 0 0;
+    background-size: 100%;
+}
+
+#audio_btn {
+    margin: 4px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    float: right;
+    background: url('../images/music.png') no-repeat 0 0;
+    background-size: 100%;
+}
+
+#audio_btn.on {
     -webkit-animation: rotating 1.2s linear infinite;
     animation: rotating 1.2s linear infinite;
-}
-
-#audio-btn.off {
-    background: url('../images/music_off.png') no-repeat 0 0;
 }
 
 @-webkit-keyframes rotating {

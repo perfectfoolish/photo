@@ -54,13 +54,13 @@ var gallery = {
         with (this) {
             for (i = 0; i < images.length; i++) {
                 Zooms[i].N += 1 / 160;
-                ti = Math.pow(5, Zooms[i].N % images.length);
+                h = Math.pow(5, Zooms[i].N % images.length);
                 with (Zooms[i].span.style) {
-                    left = ((screenWidth - (ti * width_height[i])) / (screenWidth + ti) * (screenWidth * 0.5)) + "px";
-                    top = ((screenHeight - ti) / (screenHeight + ti) * (screenHeight * 0.5)) + "px";
-                    width = (ti * width_height[i]) + "px";
-                    height = ti + "px";
-                    zIndex = Math.round(10000 - ti * 0.1);
+                    left = ((screenWidth - (h * width_height[i])) / (screenWidth + h) * (screenWidth * 0.5)) + "px";
+                    top = ((screenHeight - h) / (screenHeight + h) * (screenHeight * 0.5)) + "px";
+                    width = (h * width_height[i]) + "px";
+                    height = h + "px";
+                    zIndex = Math.round(10000 - h * 0.1);
                 }
             }
             if (status == 1) {
@@ -69,13 +69,15 @@ var gallery = {
         }
     },
 
-    playOrPause: function () {
+    playOrPause: function (target) {
         with (this) {
             if (status == 0) {
                 status = 1;
+                $(target).removeClass('off').addClass('on');
                 loop();
             } else {
                 status = 0;
+                $(target).removeClass('on').addClass('off');
             }
         }
     },
@@ -92,5 +94,6 @@ var gallery = {
             }
             loop();
         }
+        $("#gallery_btn").removeClass('off').addClass('on');
     }
 }

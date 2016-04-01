@@ -92,8 +92,9 @@
     </script>
 
     <div id="toolbar">
-        <button onclick="gallery.playOrPause()">开始</button>
-        <div id="audio-btn" class="on" onclick="music.playOrPause(this,'music')">
+        <div id="gallery_btn" onclick="gallery.playOrPause(this);">
+        </div>
+        <div id="audio_btn" class="on" onclick="music.playOrPause(this,'music')">
             <audio id="music" src="/raw/xajh.mp3" autoplay="autoplay"></audio>
         </div>
     </div>
