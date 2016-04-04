@@ -2,11 +2,8 @@ body {
     overflow: hidden;
 }
 
-/* 图片动画 */
-
-#toolbar {
-    position: relative;
-    z-index: 2147483647;
+#screen {
+    overflow: hidden;
 }
 
 .image_toolbar {
@@ -15,6 +12,7 @@ body {
     top: 0;
     left: 0;
     padding: 0;
+    z-index: 2147483647;
 }
 
 .spanSlide {
@@ -29,7 +27,11 @@ body {
     overflow: hidden;
 }
 
-/* 背景音乐 */
+#toolbar {
+    width: 100%;
+    position: relative;
+    z-index: 2147483647;
+}
 
 #gallery_btn {
     margin: 4px;

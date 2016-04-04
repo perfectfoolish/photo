@@ -7,17 +7,21 @@ var ImagePosition = function () {
 }
 
 var music = {
+    status: 0, // 0:暂停；1:播放
     playOrPause: function (target, id) {
-        var className = $(target).attr('class');
-        var ids = document.getElementById(id);
-        (className == 'on')
-            ? $(target).removeClass('on').addClass('off')
-            : $(target).removeClass('off').addClass('on');
-        (className == 'on')
-            ? ids.pause()
-            : ids.play();
+        var audio = document.getElementById(id);
+        if (this.status == 1) {
+            this.status = 0;
+            $(target).removeClass('on').addClass('off');
+            audio.pause();
+        } else {
+            this.status = 1;
+            $(target).removeClass('off').addClass('on');
+            audio.play();
+        }
     },
     play: function () {
+        this.status = 1;
         document.getElementById('music').play();
     }
 }
@@ -27,27 +31,30 @@ var music = {
 var gallery = {
     status: 0, // 0:暂停；1:播放
     Zooms: [],
-    width_height: [],
     images: 0,
     screenWidth: 0,
     screenHeight: 0,
     createElement: function (container, type, param) {
         var elem = document.createElement(type);
         for (var key in param) {
-            elem[key] = param[key];
+            elem.setAttribute(key, param[key]);
         }
         container.appendChild(elem);
         return elem;
     },
     Zoom: function (i) {
-        this.span = gallery.createElement(document.getElementById("screen"), "span", {
-            'className': 'spanSlide'
-        });
-        gallery.createElement(this.span, "img", {
-            'className': "imgSlide",
-            'src': gallery.images[i].src
-        });
-        this.N = i;
+        with (gallery) {
+            this.span = createElement(document.getElementById("screen"), "span", {
+                'class': 'spanSlide'
+            });
+            createElement(this.span, "img", {
+                'class': "imgSlide",
+                'photo_id': images[i].getAttribute("photo_id"),
+                'src': images[i].src
+            });
+            this.N = i;
+            this.ratio = images[i].width / images[i].height;
+        }
     },
 
     loop: function () {
@@ -56,9 +63,9 @@ var gallery = {
                 Zooms[i].N += 1 / 160;
                 h = Math.pow(5, Zooms[i].N % images.length);
                 with (Zooms[i].span.style) {
-                    left = ((screenWidth - (h * width_height[i])) / (screenWidth + h) * (screenWidth * 0.5)) + "px";
+                    left = ((screenWidth - (h * Zooms[i].ratio)) / (screenWidth + h) * (screenWidth * 0.5)) + "px";
                     top = ((screenHeight - h) / (screenHeight + h) * (screenHeight * 0.5)) + "px";
-                    width = (h * width_height[i]) + "px";
+                    width = (h * Zooms[i].ratio) + "px";
                     height = h + "px";
                     zIndex = Math.round(10000 - h * 0.1);
                 }
@@ -85,15 +92,89 @@ var gallery = {
     play: function () {
         with (this) {
             status = 1;
-            screenWidth = parseInt(document.getElementById("screen").style.width);
-            screenHeight = parseInt(document.getElementById("screen").style.height);
-            images = document.getElementById("images").getElementsByTagName("img");
+            screenWidth = parseInt($("#screen").css("width"));
+            screenHeight = parseInt($("#screen").css("height"));
+            images = $("#images img");
             for (var i = 0; i < images.length; i++) {
-                width_height[i] = images[i].width / images[i].height;
                 Zooms[i] = new Zoom(i);
             }
             loop();
         }
-        $("#gallery_btn").removeClass('off').addClass('on');
+    }
+}
+
+
+window.onload = function () {
+
+    $("#screen").css({
+        width: $(window).width(),
+        height: $(window).height()
+    });
+
+    $(document.body).bind('touchmove', function (e) {
+        e.preventDefault();
+    });
+
+    $(document.body).doubletap(function (e) {
+        e.preventDefault()
+    });
+
+    gallery.play();
+    music.play();
+
+
+    window.popover = $("#popover");
+    window.popover.prompt = $("#prompt");
+    window.popover.p = new ImagePosition();
+
+    $("body").bind('click', function (e) {
+        window.popover.hide();
+    });
+
+    $("img.clickable").bind('click', function (e) {
+        with (window.popover.p) {
+            photo_id = $(this).attr("photo_id");
+            x_page = e.pageX;
+            y_page = e.pageY;
+            x_px = e.pageX - parseInt($(this).offset().left);
+            y_px = e.pageY - parseInt($(this).offset().top);
+            window.popover.css({top: y_page, left: x_page});
+        }
+        window.popover.show();
+        window.popover.prompt.focus();
+        e.stopPropagation();
+    });
+
+    window.popover.bind('click', function (e) {
+        e.stopPropagation();
+    });
+
+    window.popover.prompt.bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            submit();
+        }
+    });
+
+    $("span#submit").bind('click', function (e) {
+        submit();
+    });
+
+    function submit() {
+        with (window.popover) {
+            var text = $.trim(prompt.val());
+            if (text.length == 0) {
+                alert("内容不能为空！");
+            } else {
+                $.post("/photo/prompt", {
+                    photo_id: p.photo_id,
+                    x: p.x_px,
+                    y: p.y_px,
+                    text: text
+                }, function (result) {
+                    prompt.val("");
+                    hide();
+                });
+            }
+        }
     }
 }

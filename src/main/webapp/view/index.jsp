@@ -9,96 +9,13 @@
     <script src="${pageContext.request.contextPath}/js/double.tap.js"></script>
     <script src="${pageContext.request.contextPath}/js/index.js"></script>
 
-
-    <script>
-
-        window.onload = function () {
-
-            $("#screen").css({
-                width: $(window).width(),
-                height: $(window).height()
-            });
-
-            $(document.body).bind('touchmove', function (e) {
-                e.preventDefault();
-            });
-
-            $(document.body).doubletap(
-                    function (e) {
-                        e.preventDefault()
-                    }
-            );
-
-            gallery.play();
-            music.play();
-        }
-
-        $(function () {
-
-            window.popover = $("#popover");
-            window.popover.prompt = $("#prompt");
-            window.popover.p = new ImagePosition();
-
-            $("body").bind('click', function (e) {
-                window.popover.hide();
-            });
-
-            $("img.clickable").bind('click', function (e) {
-                with (window.popover.p) {
-                    photo_id = $(this).attr("photo_id");
-                    x_page = e.pageX;
-                    y_page = e.pageY;
-                    x_px = e.pageX - parseInt($(this).offset().left);
-                    y_px = e.pageY - parseInt($(this).offset().top);
-                    window.popover.css({top: y_page, left: x_page});
-                }
-                window.popover.show();
-                window.popover.prompt.focus();
-                e.stopPropagation();
-            });
-
-            window.popover.bind('click', function (e) {
-                e.stopPropagation();
-            });
-
-            window.popover.prompt.bind('keypress', function (event) {
-                if (event.keyCode == "13") {
-                    submit();
-                }
-            });
-
-            $("span#submit").bind('click', function (e) {
-                submit();
-            });
-
-            function submit() {
-                var text = $.trim(window.popover.prompt.val());
-                if (text.length == 0) {
-                    alert("内容不能为空！");
-                } else {
-                    $.post("/photo/prompt", {
-                        photo_id: window.popover.p.photo_id,
-                        x: window.popover.p.x_px,
-                        y: window.popover.p.y_px,
-                        text: text
-                    }, function (result) {
-                        window.popover.prompt.val("");
-                        window.popover.hide();
-                    });
-                }
-            }
-        });
-
-    </script>
-
     <div id="toolbar">
-        <div id="gallery_btn" onclick="gallery.playOrPause(this);">
+        <div id="gallery_btn" class="on" onclick="gallery.playOrPause(this);">
         </div>
         <div id="audio_btn" class="on" onclick="music.playOrPause(this,'music')">
             <audio id="music" src="/raw/xajh.mp3" autoplay="autoplay"></audio>
         </div>
     </div>
-
 
     <div id="screen"></div>
 

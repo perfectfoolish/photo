@@ -22,4 +22,4 @@ mongo.username=admin
 mongo.password=InduSSAI9M2f
 
 fileDir=/Users/apple/test
-host=http://localhost:8080
+host=http://haizi.photo
