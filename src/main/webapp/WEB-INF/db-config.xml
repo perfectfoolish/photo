@@ -11,13 +11,11 @@
           http://www.springframework.org/schema/data/jpa
           http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
           http://www.springframework.org/schema/data/mongo
-          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
-          http://www.springframework.org/schema/data/repository
-          http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd">
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
     <!-- mysql -->
-    <!--
-    <bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl"
                   value="jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.db}?useUnicode=true&amp;characterEncoding=UTF-8"/>
@@ -33,8 +31,8 @@
         <property name="acquireIncrement" value="${mysql.c3p0.acquireIncrement}"/>
         <property name="maxIdleTimeExcessConnections" value="${mysql.c3p0.maxIdleTimeExcessConnections}"/>
     </bean>
-     -->
 
+    <!--
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName">
             <value>com.mysql.jdbc.Driver</value>
@@ -49,6 +47,7 @@
             <value>${mysql.password}</value>
         </property>
     </bean>
+    -->
 
     <!-- 定义实体管理器工厂 -->
     <bean id="entityManagerFactory"
@@ -86,15 +85,15 @@
                       port="${mongo.port}"
                       dbname="${mongo.db}"
                       username="${mongo.username}"
-                      password="${mongo.password}" />
+                      password="${mongo.password}"/>
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
     </bean>
     <!-- 映射转换器，扫描back-package目录下的文件，根据注释，把它们作为mongodb的一个collection的映射 -->
-    <mongo:mapping-converter base-package="photo.baby.bean" />
+    <mongo:mapping-converter base-package="photo.baby.bean"/>
 
     <!-- mongodb bean的仓库目录，会自动扫描扩展了MongoRepository接口的接口进行注入 -->
-    <mongo:repositories base-package="photo.baby" />
+    <mongo:repositories base-package="photo.baby"/>
 
 </beans>
