@@ -11,7 +11,7 @@
     <!-- spring扫描注解的配置 -->
     <context:component-scan base-package="photo.baby"/>
 
-    <import resource="classpath*:**/db-config.xml"/>
+    <import resource="classpath*:db-config.xml"/>
 
     <bean id="props"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
