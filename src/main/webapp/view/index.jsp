@@ -13,7 +13,7 @@
         <div id="gallery_btn" class="on" onclick="gallery.playOrPause(this);">
         </div>
         <div id="audio_btn" class="on" onclick="music.playOrPause(this,'music')">
-            <audio id="music" src="/raw/xajh.mp3" autoplay="autoplay"></audio>
+            <audio id="music" src="/raw/qqdwdbb.mp3" autoplay="autoplay" loop="loop"></audio>
         </div>
     </div>
 
