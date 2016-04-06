@@ -1,0 +1,25 @@
+
+## mysql
+mysql.host=127.12.49.130
+mysql.port=3306
+mysql.db=photo
+mysql.username=adminRQG5zSq
+mysql.password=m2eyQCXnEluC
+
+mysql.c3p0.checkoutTimeout=5000
+mysql.c3p0.initialPoolSize=2
+mysql.c3p0.minPoolSize=2
+mysql.c3p0.maxPoolSize=5
+mysql.c3p0.maxIdleTime=25200
+mysql.c3p0.acquireIncrement=50
+mysql.c3p0.maxIdleTimeExcessConnections=1800
+
+## mongodb
+mongo.host=127.12.49.131
+mongo.port=27017
+mongo.db=photo
+mongo.username=admin
+mongo.password=cbVLNPzXScWZ
+
+fileDir=/var/lib/openshift/570260350c1e6687f300001e/app-root/data/photo
+host=http://haizi.photo

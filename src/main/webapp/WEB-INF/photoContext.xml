@@ -11,13 +11,13 @@
     <!-- spring扫描注解的配置 -->
     <context:component-scan base-package="photo.baby"/>
 
-    <import resource="classpath*:db-config.xml"/>
+    <import resource="db-config.xml"/>
 
     <bean id="props"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>classpath*:photo.properties</value>
+                <value>/WEB-INF/photo.properties</value>
             </list>
         </property>
     </bean>
